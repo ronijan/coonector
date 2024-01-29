@@ -8,36 +8,39 @@ use PDO;
 
 final class DbOperations
 {
-    public function __construct(private readonly PDO $pdo, private string $targettargetTable)
+    private string $table;
+
+    public function __construct(
+        private readonly PDO $pdo,
+        private readonly string $targettargetTable)
     {
-        $this->targetTable = $targettargetTable;
+        $this->table = $targettargetTable;
     }
 
-    public function findById(int $id): DbOperations
+    public function findById(int $id): mixed
     {
-        $stmt = $this->pdo->prepare("SELECT * FROM $this->targetTable WHERE id = ?");
-        $stmt->execute([$id]);
-        $stmt = null;
+        $query = $this->pdo->prepare("SELECT * FROM `$this->table` WHERE id = :id");
 
-        return $this;
+        $query->execute(['id' => $id]);
+
+        return $query->fetch();
     }
 
-    public function findAll(): array|false
+    public function findAll(): array
     {
-        $stmt = $this->pdo->prepare("SELECT * FROM $this->targetTable");
-        $arr = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        if (!$arr) return false;
-        $stmt = null;
+        $query = $this->pdo->prepare("SELECT * FROM `$this->table`");
 
-        return $arr;
+        $query->execute();
+
+        return $query->fetchAll();
     }
 
-    public function deleteById(int $id): DbOperations
+    public function deleteById(int $id): bool
     {
-        $stmt = $this->pdo->prepare("DELETE FROM $this->targetTable WHERE id = ?");
-        $stmt->execute([$id]);
-        $stmt = null;
+        $query = $this->pdo->prepare("DELETE FROM `$this->table` WHERE id = :id");
 
-        return $this;
+        $query->execute(['id' => $id]);
+
+        return $query->rowCount() === 1;
     }
 }
