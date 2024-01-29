@@ -1,0 +1,31 @@
+{
+  "name": "ronijan/connector",
+  "description": "The ability to transfer data from sql db to sf project using doctine.",
+  "type": "package",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Ronijan",
+      "email": "huseyinkhalil@web.de"
+    }
+  ],
+  "require": {
+    "php": "^8.1",
+    "ext-mysqli": "*"
+  },
+  "require-dev": {},
+  "config": {
+    "optimize-autoloader": true,
+    "sort-packages": true
+  },
+  "autoload": {
+    "psr-4": {
+      "Ronijan\\Connector\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "classmap": []
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
