@@ -1,3 +1,3 @@
 ### Connector Dev-Tool
 
-The ability to transfer data from sql db to sf project using doctine.
+The ability to transfer data from sql db to sf project using doctrine.
