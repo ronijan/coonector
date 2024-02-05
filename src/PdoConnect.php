@@ -8,9 +8,9 @@ use PDO;
 
 class PdoConnect
 {
-    public $pdo;
+    public PDO $pdo;
 
-    public $table;
+    public string $table;
 
     public function __construct(
         private readonly string $host,
@@ -33,7 +33,7 @@ class PdoConnect
         $dsn = "mysql:host=$this->host;dbname=$this->dbName;charset=utf8mb4";
 
         $options = [
-            PDO::ATTR_EMULATE_PREPARES   => false,
+            PDO::ATTR_EMULATE_PREPARES   => true,
             PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         ];
